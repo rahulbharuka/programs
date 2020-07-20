@@ -1,0 +1,6 @@
+#ifdef _DEBUG
+	char FNAME[250];
+	strcpy(FNAME, __FILE__);
+	strcpy(strchr(FNAME, '.'), ".txt");
+	freopen(FNAME, "rt", stdin);
+#endif

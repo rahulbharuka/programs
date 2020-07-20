@@ -1,0 +1,34 @@
+
+
+If your dealing with files, one idea is to first verify the file's lenght, and then generate a hash just for the files that have the same size.
+
+Then just compare the file's hashes. If they're the same, you've got a duplicate file.
+
+There's a tradeoff between safety and accuracy: there might happen, who knows, to have different files with the same hash. So you can improve your solution: generate a simple, fast hash to find the dups. When they're different, you have different files. When they're equal, generate a second hash. If the second hash is different, you just had a false positive. If they're equal again, probably you have a real duplicate.
+
+In other words:
+
+generate file sizes
+for each file, verify if there's some with the same size.
+if you have any, then generate a fast hash for them.
+compare the hashes.
+If different, ignore.
+If equal: generate a second hash.
+Compare.
+If different, ignore.
+If equal, you have two identical files.
+
+Doing a hash for every file will take too much time and will be useless if most of your files are different.
+
+==========================================================================================================
+
+Calculating hash will make your program run slow. Its better you also check the file size. All the duplicate file should have same file size. If they share same file size apply hash check. It'll make your program perform fast.
+
+There can be more steps.
+
+    Check if file size is equal
+    If step 1 passes, check if first and last range of bytes (say 100 bytes) are equal
+    If step 2 passes, check file type,
+    If step 3 passes, check the hash at last
+
+The more criteria you add the more faster it'll perform and you can avoid the last resort (hash) this way.
